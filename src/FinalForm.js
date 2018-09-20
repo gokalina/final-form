@@ -854,6 +854,10 @@ const createForm = (config: Config): FormApi => {
 
     submit: () => {
       const { formState } = state
+      if (formState.active) {
+        // some field is active, simulate blur before submit
+        api.blur(formState.active)
+      }
       if (hasSyncErrors()) {
         markAllFieldsTouched()
         state.formState.submitFailed = true
